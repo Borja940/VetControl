@@ -33,23 +33,16 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jpCeleste = new javax.swing.JPanel();
         lblCitas = new javax.swing.JLabel();
-        lblMotivo = new javax.swing.JLabel();
-        txtRaza = new javax.swing.JTextField();
+        lblVacunas = new javax.swing.JLabel();
         lblEspecie = new javax.swing.JLabel();
-        lblVeterinario = new javax.swing.JLabel();
+        lblDiagonostico = new javax.swing.JLabel();
         lblIdMascota = new javax.swing.JLabel();
-        lblRaza = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableConsultas = new javax.swing.JTable();
+        tableHistorial = new javax.swing.JTable();
         cmbIdMascota = new javax.swing.JComboBox<>();
-        txtEspecie = new javax.swing.JTextField();
-        panelBlanco = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
-        txtDueño = new javax.swing.JTextField();
-        txtEdad = new javax.swing.JTextField();
+        txtVacunas = new javax.swing.JTextField();
+        txtDiagnostico = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -66,157 +59,104 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
         lblCitas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCitas.setText("Historial Clínico");
 
-        lblMotivo.setForeground(new java.awt.Color(0, 0, 0));
-        lblMotivo.setText("Dueño:");
+        lblVacunas.setForeground(new java.awt.Color(0, 0, 0));
+        lblVacunas.setText("Vacunas:");
 
-        lblEspecie.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEspecie.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEspecie.setForeground(new java.awt.Color(0, 0, 0));
-        lblEspecie.setText("Especie:");
+        lblEspecie.setText("Formulario de Consulta");
 
-        lblVeterinario.setForeground(new java.awt.Color(0, 0, 0));
-        lblVeterinario.setText("Edad:");
+        lblDiagonostico.setForeground(new java.awt.Color(0, 0, 0));
+        lblDiagonostico.setText("Diagnóstico:");
 
         lblIdMascota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblIdMascota.setForeground(new java.awt.Color(0, 0, 0));
         lblIdMascota.setText("Id Macota:");
 
-        lblRaza.setForeground(new java.awt.Color(0, 0, 0));
-        lblRaza.setText("Raza:");
-
-        tableConsultas.setModel(new javax.swing.table.DefaultTableModel(
+        tableHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "IdMascota", "Diagnóstico", "Vacunas"
             }
         ));
-        jScrollPane1.setViewportView(tableConsultas);
+        jScrollPane1.setViewportView(tableHistorial);
 
         cmbIdMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        panelBlanco.setBackground(java.awt.Color.white);
-
-        btnBuscar.setText("Buscar");
-
-        btnEliminar.setBackground(new java.awt.Color(255, 102, 102));
-        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEliminar.setText("Eliminar");
-
-        btnEditar.setText("Editar");
-
-        btnRegistrar.setText("Registrar");
-
-        javax.swing.GroupLayout panelBlancoLayout = new javax.swing.GroupLayout(panelBlanco);
-        panelBlanco.setLayout(panelBlancoLayout);
-        panelBlancoLayout.setHorizontalGroup(
-            panelBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBlancoLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-        panelBlancoLayout.setVerticalGroup(
-            panelBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBlancoLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addGroup(panelBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnRegistrar))
-                .addContainerGap())
-        );
+        btnGuardar.setText("Guardar");
 
         javax.swing.GroupLayout jpCelesteLayout = new javax.swing.GroupLayout(jpCeleste);
         jpCeleste.setLayout(jpCelesteLayout);
         jpCelesteLayout.setHorizontalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCelesteLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(panelBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jpCelesteLayout.createSequentialGroup()
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
+                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCelesteLayout.createSequentialGroup()
                         .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblVeterinario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(265, 265, 265)
+                                .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addGap(167, 167, 167)
-                                .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 273, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
-                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                                        .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                                        .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(lblMotivo)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
+                                .addGap(30, 30, 30)
                                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jpCelesteLayout.createSequentialGroup()
-                                        .addComponent(txtEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(lblRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblDiagonostico, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                                        .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(57, 57, 57)
+                                        .addComponent(lblVacunas)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(txtVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(115, 115, 115)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCelesteLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(lblIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(85, 85, 85))
+            .addGroup(jpCelesteLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpCelesteLayout.setVerticalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCelesteLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblIdMascota)
-                        .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblEspecie)
-                        .addComponent(lblRaza)
-                        .addComponent(txtEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addGap(22, 22, 22)
                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblVeterinario)
-                    .addComponent(lblMotivo)
-                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDueño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(panelBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addComponent(lblIdMascota)
+                    .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(lblEspecie)
+                .addGap(39, 39, 39)
+                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDiagonostico)
+                    .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVacunas)
+                    .addComponent(btnGuardar))
+                .addGap(71, 71, 71)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpCeleste, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpCeleste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,10 +192,7 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbIdMascota;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -263,16 +200,12 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpCeleste;
     private javax.swing.JLabel lblCitas;
+    private javax.swing.JLabel lblDiagonostico;
     private javax.swing.JLabel lblEspecie;
     private javax.swing.JLabel lblIdMascota;
-    private javax.swing.JLabel lblMotivo;
-    private javax.swing.JLabel lblRaza;
-    private javax.swing.JLabel lblVeterinario;
-    private javax.swing.JPanel panelBlanco;
-    private javax.swing.JTable tableConsultas;
-    private javax.swing.JTextField txtDueño;
-    private javax.swing.JTextField txtEdad;
-    private javax.swing.JTextField txtEspecie;
-    private javax.swing.JTextField txtRaza;
+    private javax.swing.JLabel lblVacunas;
+    private javax.swing.JTable tableHistorial;
+    private javax.swing.JTextField txtDiagnostico;
+    private javax.swing.JTextField txtVacunas;
     // End of variables declaration//GEN-END:variables
 }
