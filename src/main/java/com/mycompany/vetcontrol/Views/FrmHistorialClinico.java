@@ -41,8 +41,13 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
         tableHistorial = new javax.swing.JTable();
         cmbIdMascota = new javax.swing.JComboBox<>();
         txtVacunas = new javax.swing.JTextField();
-        txtDiagnostico = new javax.swing.JTextField();
+        txtFechaAtencion = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        lblDiagonostico1 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        txtDiagnostico = new javax.swing.JTextField();
+        lblTratamiento = new javax.swing.JLabel();
+        txtTratamiento = new javax.swing.JTextField();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -75,13 +80,13 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
 
         tableHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "IdMascota", "Diagnóstico", "Vacunas"
+                "IdMascota", "Fecha atención", "Diagnóstico", "Tratamiento", "Vacunas"
             }
         ));
         jScrollPane1.setViewportView(tableHistorial);
@@ -90,63 +95,92 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
 
         btnGuardar.setText("Guardar");
 
+        lblDiagonostico1.setForeground(new java.awt.Color(0, 0, 0));
+        lblDiagonostico1.setText("Diagnóstico:");
+
+        lblFecha.setForeground(new java.awt.Color(0, 0, 0));
+        lblFecha.setText("Fecha Atención:");
+
+        lblTratamiento.setForeground(new java.awt.Color(0, 0, 0));
+        lblTratamiento.setText("Tratamiento:");
+
         javax.swing.GroupLayout jpCelesteLayout = new javax.swing.GroupLayout(jpCeleste);
         jpCeleste.setLayout(jpCelesteLayout);
         jpCelesteLayout.setHorizontalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCelesteLayout.createSequentialGroup()
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addGap(265, 265, 265)
-                                .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                                        .addComponent(lblDiagonostico, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(lblVacunas)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(txtVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(115, 115, 115)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCelesteLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(lblIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(85, 85, 85))
             .addGroup(jpCelesteLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpCelesteLayout.createSequentialGroup()
+                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(lblTratamiento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(lblVacunas)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addComponent(lblIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addComponent(lblFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaAtencion, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(lblDiagonostico, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpCelesteLayout.createSequentialGroup()
+                    .addGap(40, 40, 40)
+                    .addComponent(lblDiagonostico1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(662, Short.MAX_VALUE)))
         );
         jpCelesteLayout.setVerticalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCelesteLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEspecie)
+                .addGap(50, 50, 50)
                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIdMascota)
-                    .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addComponent(lblEspecie)
-                .addGap(39, 39, 39)
+                    .addComponent(cmbIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFecha)
+                    .addComponent(txtFechaAtencion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDiagonostico)
+                    .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDiagonostico)
-                    .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblVacunas)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(lblTratamiento)
+                    .addComponent(txtTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(71, 71, 71)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpCelesteLayout.createSequentialGroup()
+                    .addGap(215, 215, 215)
+                    .addComponent(lblDiagonostico1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(381, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,11 +235,16 @@ public class FrmHistorialClinico extends javax.swing.JFrame {
     private javax.swing.JPanel jpCeleste;
     private javax.swing.JLabel lblCitas;
     private javax.swing.JLabel lblDiagonostico;
+    private javax.swing.JLabel lblDiagonostico1;
     private javax.swing.JLabel lblEspecie;
+    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblIdMascota;
+    private javax.swing.JLabel lblTratamiento;
     private javax.swing.JLabel lblVacunas;
     private javax.swing.JTable tableHistorial;
     private javax.swing.JTextField txtDiagnostico;
+    private javax.swing.JTextField txtFechaAtencion;
+    private javax.swing.JTextField txtTratamiento;
     private javax.swing.JTextField txtVacunas;
     // End of variables declaration//GEN-END:variables
 }
