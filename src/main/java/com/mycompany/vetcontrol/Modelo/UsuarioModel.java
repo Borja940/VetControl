@@ -13,19 +13,18 @@ public class UsuarioModel {
     private String nombre;
     private String correo;
     private String passwordHash;
-    private int rol;
-    private String nombreRol;
+    private String rol;
 
     public UsuarioModel() {
     }
 
-    public UsuarioModel(int idUsuario, String nombre, String correo, String passwordHash, int rol, String nombreRol) {
+    public UsuarioModel(int idUsuario, String nombre, String correo, String passwordHash, String rol) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.correo = correo;
         this.passwordHash = passwordHash;
         this.rol = rol;
-        this.nombreRol = nombreRol;
+    
     }
 
     public int getIdUsuario() {
@@ -60,20 +59,12 @@ public class UsuarioModel {
         this.passwordHash = passwordHash;
     }
 
-    public int getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(int rol) {
+    public void setRol(String rol) {
         this.rol = rol;
-    }
-
-    public String getNombreRol() {
-        return nombreRol;
-    }
-
-    public void setNombreRol(String nombreRol) {
-        this.nombreRol = nombreRol;
     }
     
 }

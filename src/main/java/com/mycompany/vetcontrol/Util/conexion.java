@@ -4,10 +4,12 @@
  */
 package com.mycompany.vetcontrol.Util;
 
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 
 /**
  *
@@ -15,18 +17,18 @@ import java.sql.SQLException;
  */
 public class conexion {
     
-    private static final String DATABASE = "VetControl";
-    
-    
-    private static final String URL ="";
-    private static final String USER = "";
-    private static final String PASSWORD ="";
-    
-}
-    
+  
+    private static final String URL ="jdbc:mysql://localhost:3306/vetControl";
+    private static final String USER = "root";
+    private static final String PASSWORD ="1981borja";
+   
+
+  
      public static Connection obtener() throws SQLException{
+         
         return DriverManager.getConnection(URL, USER, PASSWORD);
     
-        
-    
+     
 }
+}
+

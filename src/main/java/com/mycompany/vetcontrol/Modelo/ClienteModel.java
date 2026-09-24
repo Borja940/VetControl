@@ -12,15 +12,17 @@ public class ClienteModel {
     
     private int idCliente;
     private String nombre;
+    private String direccion;
     private String telefono;
     private String correo;
 
     public ClienteModel() {
     }
 
-        public ClienteModel(int idCliente, String nombre, String telefono, String correo) {
+        public ClienteModel(int idCliente, String nombre, String direccion, String telefono, String correo) {
             this.idCliente = idCliente;
             this.nombre = nombre;
+            this.direccion = direccion;
             this.telefono = telefono;
             this.correo = correo;
         }
@@ -40,6 +42,15 @@ public class ClienteModel {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    public String getDireccion(){
+        return direccion;
+       
+    }
+    
+    public void setDireccion(String direccion){
+        this.direccion = direccion;
+    }
 
     public String getTelefono() {
         return telefono;
@@ -56,6 +67,8 @@ public class ClienteModel {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    
+    
         
         
 

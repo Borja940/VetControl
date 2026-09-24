@@ -4,6 +4,7 @@
  */
 package com.mycompany.vetcontrol.Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -18,12 +19,12 @@ public class ProductoModel {
     private int stock;
     private double precio;
     private int stockMinimo;
-    private Date fechaVencimiento;
+    private LocalDate fechaVencimiento;
 
     public ProductoModel() {
     }
 
-    public ProductoModel(int idProducto, String codigo, String nombre, int stock, double precio, int stockMinimo, Date fechaVencimiento) {
+    public ProductoModel(int idProducto, String codigo, String nombre, int stock, double precio, int stockMinimo, LocalDate fechaVencimiento) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -81,11 +82,11 @@ public class ProductoModel {
         this.stockMinimo = stockMinimo;
     }
 
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
     

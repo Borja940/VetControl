@@ -9,33 +9,33 @@ package com.mycompany.vetcontrol.Modelo;
  * @author andy-
  */
 public class MascotaModel {
-    private int idMacota;
+    private int idMascota;
     private String nombre;
     private String especie;
     private String raza;
-    private String edad;
-    private ClienteModel dueno;
+    private int edad;
+    private int duenio;
 
     public MascotaModel() {
     }
 
-    public MascotaModel(int idMacota, String nombre, String especie, String raza, String edad, ClienteModel dueno) {
-        this.idMacota = idMacota;
+    public MascotaModel(int idMascota, String nombre, String especie, String raza, int edad, int duenio) {
+        this.idMascota = idMascota;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
         this.edad = edad;
-        this.dueno = dueno;
+        this.duenio = duenio;
         
         
     }
 
-    public int getIdMacota() {
-        return idMacota;
+    public int getIdMascota() {
+        return idMascota;
     }
 
-    public void setIdMacota(int idMacota) {
-        this.idMacota = idMacota;
+    public void setIdMascota(int idMascota) {
+        this.idMascota = idMascota;
     }
 
     public String getNombre() {
@@ -62,20 +62,20 @@ public class MascotaModel {
         this.raza = raza;
     }
 
-    public String getEdad() {
+    public int getEdad() {
         return edad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
-    public ClienteModel getDueno() {
-        return dueno;
+    public int getDuenio() {
+        return duenio;
     }
 
-    public void setDueno(ClienteModel dueno) {
-        this.dueno = dueno;
+    public void setDuenio(int duenio) {
+        this.duenio = duenio;
     }
     
     
