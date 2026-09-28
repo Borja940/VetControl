@@ -22,13 +22,13 @@ import java.util.List;
 public class MascotaDAO {
     
       public void insertar(MascotaModel m) throws SQLException {
-         String sql = "insert into cliente(nombre, especie, raza, edad, duenio) values (?,?,?,?,?)";
+         String sql = "insert into mascota (nombre, especie, raza, edad, id_cliente) values (?,?,?,?,?)";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getEspecie());
             ps.setString(3, m.getRaza());
             ps.setInt(4, m.getEdad());
-            ps.setInt(5, m.getDuenio());
+            ps.setInt(5, m.getIdCliente());
             
             ps.executeUpdate();
             try (ResultSet rs =  ps.getGeneratedKeys()) {
@@ -40,7 +40,7 @@ public class MascotaDAO {
     }
       
        public MascotaModel buscarporId(int idMascota) throws SQLException{
-        String sql ="select idMascota, nombre, especie, raza, edad from cliente where id_mascota=?";
+        String sql ="select id_mascota, nombre, especie, raza, edad, id_cliente from cliente where id_mascota=?";
         try(Connection con = conexion.obtener();
                 PreparedStatement ps = con.prepareStatement (sql)){
             ps.setInt(1, idMascota);
@@ -52,7 +52,7 @@ public class MascotaDAO {
                         rs.getString("especie"),
                         rs.getString("raza"),
                         rs.getInt("edad"),   
-                        rs.getInt("duenio") 
+                        rs.getInt("idCliente") 
                 );        
             }
         }
@@ -61,16 +61,16 @@ public class MascotaDAO {
     }   
         public List<MascotaModel> listar() throws SQLException {
         List<MascotaModel> lista = new ArrayList<>();
-        String sql = "select idMascota, nombre, especie, raza, edad, duenio from mascota";
+        String sql = "select id_mascota, nombre, especie, raza, edad, id_cliente from mascota";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new MascotaModel(
-                        rs.getInt ("idMascota"),
+                        rs.getInt ("id_Mascota"),
                         rs.getString("nombre"),
                         rs.getString("especie"),
                         rs.getString("raza"),
                         rs.getInt("edad"),   
-                        rs.getInt("duenio")      
+                        rs.getInt("id_cliente")      
                 ));
             }
 
@@ -80,15 +80,16 @@ public class MascotaDAO {
   
                    
 public void actualizar (MascotaModel m) throws SQLException{
-        String sql = "update mascota set nombre=?, especie=? raza=? edad=? duenio=? where id_mascota=?";
+        String sql = "update mascota set nombre=?, especie=? raza=? edad=? id_cliente=? where id_mascota=?";
         try(Connection con = conexion.obtener();
         PreparedStatement ps = con.prepareCall(sql)){
         ps.setString(1, m.getNombre());
         ps.setString(2, m.getEspecie());
         ps.setString(3, m.getRaza());
         ps.setInt(4, m.getEdad());
-        ps.setInt(5, m.getDuenio());
-     ;
+        ps.setInt(5, m.getIdCliente()
+        );
+       
         ps.executeUpdate();
                      
         }

@@ -6,6 +6,7 @@ package com.mycompany.vetcontrol.Modelo;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class CitaModel {
     
     private int idCita;
     private LocalDate fecha;
-    private Time hora;
+    private LocalTime hora;
     private String motivo;
     private int idMascota;
     private int idVeterinario;
@@ -24,7 +25,7 @@ public class CitaModel {
     public CitaModel() {
     }
 
-    public CitaModel(int idCita, LocalDate fecha, Time hora, String motivo,  int idMascota, int idVeterinario) {
+    public CitaModel(int idCita, LocalDate fecha, LocalTime hora, String motivo, int idMascota, int idVeterinario) {
         this.idCita = idCita;
         this.fecha = fecha;
         this.hora = hora;
@@ -32,6 +33,9 @@ public class CitaModel {
         this.idMascota = idMascota;
         this.idVeterinario = idVeterinario;
     }
+    
+    
+
 
     public int getIdCita() {
         return idCita;
@@ -49,11 +53,11 @@ public class CitaModel {
         this.fecha = fecha;
     }
 
-    public Time getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 

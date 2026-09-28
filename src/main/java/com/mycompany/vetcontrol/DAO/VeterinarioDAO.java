@@ -45,12 +45,12 @@ public class VeterinarioDAO {
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
                 return new VeterinarioModel(
-                        rs.getInt ("idVeterinario"),
+                        rs.getInt ("id_veterinario"),
                         rs.getString("nombre"),
                         rs.getString("colegiado"), 
                         rs.getString("especialidad"),
                         rs.getString("telefono"),
-                        rs.getInt("idUsuario")
+                        rs.getInt("id_usuario")
                         
                 );        
                       
@@ -62,16 +62,16 @@ public class VeterinarioDAO {
         
         public List<VeterinarioModel> listar() throws SQLException {
         List<VeterinarioModel> lista = new ArrayList<>();
-        String sql = "select idVeterinario, nombre, colegiado, especialidad, telefono, id_usuario from veterinario";
+        String sql = "select id_veterinario, nombre, colegiado, especialidad, telefono, id_usuario from veterinario";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new VeterinarioModel(
-                        rs.getInt("idHistorial"),
+                        rs.getInt("id_veterinario"),
                         rs.getString("nombre"),
                         rs.getString("colegiado"),  
                         rs.getString("especialidad"),
-                        rs.getString("telefono"),
-                         rs.getInt("idUsuario")
+                        rs.getString("telefono"), 
+                         rs.getInt("id_Usuario")
                 ));
             }
 

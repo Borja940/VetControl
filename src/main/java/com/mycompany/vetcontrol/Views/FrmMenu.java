@@ -8,14 +8,14 @@ package com.mycompany.vetcontrol.Views;
  *
  * @author andy-
  */
-public class FrmMenú extends javax.swing.JFrame {
+public class FrmMenu extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMenú.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMenu.class.getName());
 
     /**
      * Creates new form FrmMenú
      */
-    public FrmMenú() {
+    public FrmMenu() {
         initComponents();
     }
 
@@ -35,6 +35,7 @@ public class FrmMenú extends javax.swing.JFrame {
         btnMascotas = new javax.swing.JButton();
         btnCitas = new javax.swing.JButton();
         btnInventario = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         panelContenerdor = new javax.swing.JPanel();
         lblVetControl = new javax.swing.JLabel();
         MBarMenuSuperior = new javax.swing.JMenuBar();
@@ -50,15 +51,21 @@ public class FrmMenú extends javax.swing.JFrame {
 
         panelMenu.setBackground(java.awt.SystemColor.activeCaption);
 
-        btnInicioSesion.setText("Incicio Sesión");
+        btnInicioSesion.setText("Inicio Sesión");
+        btnInicioSesion.addActionListener(this::btnInicioSesionActionPerformed);
 
         btnClientes.setText("Clientes");
+        btnClientes.addActionListener(this::btnClientesActionPerformed);
 
         btnMascotas.setText("Mascotas");
+        btnMascotas.addActionListener(this::btnMascotasActionPerformed);
 
         btnCitas.setText("Citas");
+        btnCitas.addActionListener(this::btnCitasActionPerformed);
 
         btnInventario.setText("Inventario");
+
+        btnHistorial.setText("Hitorial Clinico");
 
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
@@ -67,26 +74,29 @@ public class FrmMenú extends javax.swing.JFrame {
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnInicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMascotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(btnInicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(btnInicioSesion)
-                .addGap(36, 36, 36)
-                .addComponent(btnClientes)
-                .addGap(33, 33, 33)
-                .addComponent(btnMascotas)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnCitas)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
+                .addComponent(btnClientes)
+                .addGap(18, 18, 18)
+                .addComponent(btnMascotas)
+                .addGap(18, 18, 18)
                 .addComponent(btnInventario)
+                .addGap(18, 18, 18)
+                .addComponent(btnHistorial)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -96,7 +106,7 @@ public class FrmMenú extends javax.swing.JFrame {
         panelContenerdor.setLayout(panelContenerdorLayout);
         panelContenerdorLayout.setHorizontalGroup(
             panelContenerdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGap(0, 563, Short.MAX_VALUE)
         );
         panelContenerdorLayout.setVerticalGroup(
             panelContenerdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,6 +178,30 @@ public class FrmMenú extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasActionPerformed
+        // TODO add your handling code here:
+        
+       
+    }//GEN-LAST:event_btnCitasActionPerformed
+
+    private void btnMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMascotasActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnMascotasActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // TODO add your handling code here:
+       
+
+  
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
+        // TODO add your handling code here:
+        
+      
+    }//GEN-LAST:event_btnInicioSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -190,13 +224,14 @@ public class FrmMenú extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmMenú().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FrmMenu().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MBarMenuSuperior;
     private javax.swing.JButton btnCitas;
     private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicioSesion;
     private javax.swing.JButton btnInventario;
     private javax.swing.JButton btnMascotas;

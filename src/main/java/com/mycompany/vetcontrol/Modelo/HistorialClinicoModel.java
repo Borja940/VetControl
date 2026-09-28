@@ -33,8 +33,17 @@ public class HistorialClinicoModel {
         this.tratamiento = tratamiento;
         this.vacunas = vacunas;
         this.idVeterinario = idVeterinario;
+       
     }
-    
+
+    public HistorialClinicoModel(int idMascota, LocalDate fechaAtencion, String diagnostico, String tratamiento, String vacunas, int idVeterinario) {
+        this.idMascota = idMascota;
+        this.fechaAtencion = fechaAtencion;
+        this.diagnostico = diagnostico;
+        this.tratamiento = tratamiento;
+        this.vacunas = vacunas;
+        this.idVeterinario = idVeterinario;
+    }
 
     public int getIdHistorial() {
         return idHistorial;
@@ -88,12 +97,10 @@ public class HistorialClinicoModel {
         return idVeterinario;
     }
 
-    public void setIdveterinario(int idveterinario) {
+    public void setIdVeterinario(int idVeterinario) {
         this.idVeterinario = idVeterinario;
     }
     
-    
-    
-    
+
     
 }

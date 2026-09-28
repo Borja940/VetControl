@@ -14,20 +14,30 @@ public class MascotaModel {
     private String especie;
     private String raza;
     private int edad;
-    private int duenio;
+    private int id_cliente;
 
     public MascotaModel() {
     }
 
-    public MascotaModel(int idMascota, String nombre, String especie, String raza, int edad, int duenio) {
+    public MascotaModel(int idMascota, String nombre, String especie, String raza, int edad, int id_cliente) {
         this.idMascota = idMascota;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
         this.edad = edad;
-        this.duenio = duenio;
+        this.id_cliente = id_cliente;
         
         
+        
+        
+    }
+
+    public MascotaModel(String nombre, String especie, String raza, int edad, int id_cliente) {
+        this.nombre = nombre;
+        this.especie = especie;
+        this.raza = raza;
+        this.edad = edad;
+        this.id_cliente = id_cliente;
     }
 
     public int getIdMascota() {
@@ -70,12 +80,12 @@ public class MascotaModel {
         this.edad = edad;
     }
 
-    public int getDuenio() {
-        return duenio;
+    public int getIdCliente() {
+        return id_cliente;
     }
 
-    public void setDuenio(int duenio) {
-        this.duenio = duenio;
+    public void setIdCliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
     
     

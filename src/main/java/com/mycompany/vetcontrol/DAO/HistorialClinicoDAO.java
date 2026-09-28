@@ -18,17 +18,17 @@ import java.util.List;
  *
  * @author andy-
  */
-public class HistorilClinicoDAO {
+public class HistorialClinicoDAO {
     
     public void insertar(HistorialClinicoModel h) throws SQLException {
-         String sql = "insert into historial_clinico (id_mascota, fecha_Atencion, diagnostico, tratamiento, vacunas, id_veterinario) values (?,?,?,?,?,?)";
+         String sql = "insert into historial_clinico (id_mascota, fecha_atencion, diagnostico, tratamiento, vacunas, id_veterinario) values (?,?,?,?,?,?)";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, h.getIdMascota());
             ps.setDate(2, java.sql.Date.valueOf(h.getFechaAtencion()));
             ps.setString(3, h.getDiagnostico());
             ps.setString(4, h.getTratamiento());
-            ps.setString(3, h.getVacunas());
-            ps.setInt(5, h.getIdVeterinario());
+            ps.setString(5, h.getVacunas());
+            ps.setInt(6, h.getIdVeterinario());
          
             ps.executeUpdate();
             try (ResultSet rs =  ps.getGeneratedKeys()) {
@@ -40,20 +40,20 @@ public class HistorilClinicoDAO {
     }
     
         public HistorialClinicoModel buscarporId(int idHistorial) throws SQLException{
-        String sql ="select idHistorial, idMascota, fecha_atencion, diagnostico, tratamiento, vacunas, id_veterinario from historial_clinico where id_historial=?";
+        String sql ="select id_historial, id_mascota, fecha_atencion, diagnostico, tratamiento, vacunas, id_veterinario from historial_clinico where id_historial=?";
         try(Connection con = conexion.obtener();
                 PreparedStatement ps = con.prepareStatement (sql)){
             ps.setInt(1, idHistorial);
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
                 return new HistorialClinicoModel(
-                        rs.getInt ("idHistorial"),
-                        rs.getInt ("idMascota"),
-                        rs.getDate("fechaAtencion").toLocalDate(),
+                        rs.getInt ("id_historial"),
+                        rs.getInt ("id_Mascota"),
+                        rs.getDate("fecha_atencion").toLocalDate(),
                         rs.getString("diagnostico"),
                         rs.getString("tratamiento"), 
                         rs.getString("vacunas"),
-                        rs.getInt("idVeterinario")
+                        rs.getInt("id_veterinario")
                         
                 );        
                       
@@ -65,19 +65,19 @@ public class HistorilClinicoDAO {
         
         public List<HistorialClinicoModel> listar() throws SQLException {
         List<HistorialClinicoModel> lista = new ArrayList<>();
-        String sql = "select idHistorial id_mascota, fecha_atencion, diagnostico, tratamiento, vacunas, id_veterinario from historial_clinico";
+        String sql = "select id_historial, id_mascota, fecha_atencion, diagnostico, tratamiento, vacunas, id_veterinario from historial_clinico";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new HistorialClinicoModel(
-                        rs.getInt("idCita"),
-                        rs.getInt("idMascota"),
-                        rs.getDate("fechaAtencion").toLocalDate(), 
+                        rs.getInt("id_historial"),
+                        rs.getInt("id_mascota"),
+                        rs.getDate("fecha_atencion").toLocalDate(), 
                          rs.getString("diagnostico"),
                         rs.getString("tratamiento"), 
                         rs.getString("vacunas"),
-                        rs.getInt("idVeterianrio") 
+                        rs.getInt("id_veterinario") 
                         
-                ));
+                )); 
             }
 
         }
@@ -102,7 +102,6 @@ public class HistorilClinicoDAO {
                      
         }
         }
-        
         
         
         public void eliminar(int idHistorial) throws SQLException{

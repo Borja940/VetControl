@@ -27,6 +27,19 @@ public class ClienteModel {
             this.correo = correo;
         }
 
+    public ClienteModel(String nombre, String direccion, String telefono, String correo) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+        
+        
+
+
+        
+        
+
     public int getIdCliente() {
         return idCliente;
     }

@@ -35,6 +35,7 @@ public class UsuarioDAO {
                 }
             }
         }
+        
     }
     
         public UsuarioModel buscarporId(int idUsuario) throws SQLException{
@@ -98,12 +99,35 @@ public class UsuarioDAO {
         
         
         public void eliminar(int idUsuario) throws SQLException{
-        String sql= "delete from usuario where id_usuario=?";
-        try(Connection con =conexion.obtener();
+            String sql= "delete from usuario where id_usuario=?";
+            try(Connection con =conexion.obtener();
                 PreparedStatement ps = con.prepareStatement (sql)){
-            ps.setInt (1, idUsuario);
-            ps.executeUpdate();
+                ps.setInt (1, idUsuario);
+                ps.executeUpdate();
         }
+        }
+        
+        
+        public UsuarioModel login(String correo, String passwordHash) throws SQLException {
+            UsuarioModel usuario = null;
+            String sql = "SELECT id_usuario, nombre, correo, rol FROM usuarios WHERE correo = ? AND password_hash = ?";
+            try (Connection con = conexion.obtener();
+                    PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, correo);
+                ps.setString(2, passwordHash);
+                
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        usuario = new UsuarioModel();
+                        usuario.setIdUsuario(rs.getInt("id_usuario"));
+                        usuario.setNombre(rs.getString("nombre"));
+                        usuario.setCorreo(rs.getString("correo"));
+                        usuario.setRol(rs.getString("rol"));
+                    }
+                }
+            }
+            
+            return usuario; 
         }
 }
         

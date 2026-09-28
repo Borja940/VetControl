@@ -18,10 +18,10 @@ import java.util.List;
  *
  * @author andy-
  */
-class ClienteDAO {
+public class ClienteDAO {
     
     public void insertar(ClienteModel c) throws SQLException {
-         String sql = "insert into cliente(nombre, direccion, telefono, correo) values (?,?,?,?)";
+         String sql = "insert into cliente(nombre, dirección, telefono, correo) values (?,?,?,?)";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, c.getNombre());
             ps.setString(2, c.getDireccion());
@@ -37,7 +37,7 @@ class ClienteDAO {
     }
     
         public ClienteModel buscarporId(int idCliente) throws SQLException{
-        String sql ="select id, nombre, direccion, telefono, correo from cliente where id_cliente=?";
+        String sql ="select id, nombre, dirección, telefono, correo from cliente where id_cliente=?";
         try(Connection con = conexion.obtener();
                 PreparedStatement ps = con.prepareStatement (sql)){
             ps.setInt(1, idCliente);
@@ -46,7 +46,7 @@ class ClienteDAO {
                 return new ClienteModel(
                         rs.getInt ("idCliente"),
                         rs.getString("nombre"),
-                        rs.getString("direccion"), 
+                        rs.getString("dirección"), 
                          rs.getString("telefono"),
                         rs.getString("correo")   
                 );        
@@ -59,13 +59,13 @@ class ClienteDAO {
         
         public List<ClienteModel> listar() throws SQLException {
         List<ClienteModel> lista = new ArrayList<>();
-        String sql = "select idCliente, nombre, direccion, telefono, correo from cliente";
+        String sql = "select id_cliente, nombre, dirección, telefono, correo from cliente";
         try (Connection con = conexion.obtener(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new ClienteModel(
-                        rs.getInt("idCliente"),
+                        rs.getInt("id_cliente"),
                         rs.getString("nombre"),
-                        rs.getString("direccion"),  
+                        rs.getString("dirección"),  
                          rs.getString("telefono"),
                         rs.getString("correo") 
                 ));
@@ -78,7 +78,7 @@ class ClienteDAO {
         
         
         public void actualizar (ClienteModel c) throws SQLException{
-        String sql = "update cliente set nombre=?, direccion=?, telefono=?, correo=? where id_cliente=?";
+        String sql = "update cliente set nombre=?, dirección=?, telefono=?, correo=? where id_cliente=?";
         try(Connection con = conexion.obtener();
         PreparedStatement ps = con.prepareCall(sql)){
         ps.setString(1, c.getNombre());
@@ -102,16 +102,3 @@ class ClienteDAO {
         }
 }
         
-
-           
-        
-    
-         
-    
-         
-         
-         
-         
-     
-    
-  

@@ -4,6 +4,19 @@
  */
 package com.mycompany.vetcontrol.Views;
 
+import com.mycompany.vetcontrol.DAO.ClienteDAO;
+import com.mycompany.vetcontrol.DAO.MascotaDAO;
+import com.mycompany.vetcontrol.Modelo.ClienteModel;
+import com.mycompany.vetcontrol.Modelo.MascotaModel;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author andy-
@@ -11,13 +24,95 @@ package com.mycompany.vetcontrol.Views;
 public class FrmMascotas extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMascotas.class.getName());
+     private final MascotaDAO dao = new MascotaDAO();
+   
+    
+    private String[] columnas = {"idMascota", "nombre", "especie", "raza", "edad", "IdCliente"};
 
     /**
      * Creates new form FrmMascotas
      */
     public FrmMascotas() {
         initComponents();
+ 
+         DefaultTableModel model = new DefaultTableModel (columnas, 0);
+         TblMascotas.setModel(model);// Limpia los ítems por defecto del diseño
+        
+         
+         //Configuramos el renderizador visual para que muestre el nombre del cliente dueño
+         cmbIdCliente.setRenderer(new DefaultListCellRenderer() {
+             @Override
+             public Component getListCellRendererComponent(JList<?> list, Object value, 
+                     int index, boolean isSelected, boolean cellHasFocus) {
+                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                 // Evaluamos si el objeto dentro de la celda es de tu clase clienteModel
+                 if (value instanceof ClienteModel) {
+                     ClienteModel cliente = (ClienteModel) value;
+                     setText(cliente.getNombre()); 
+                 }
+                 return this;
+             }
+         });
+         
+         cargarClientesCombo();
     }
+
+    
+    private void cargarClientesCombo(){
+        
+        try {
+            // Declaramos el objeto DAO y el modelo por defecto del combobox
+            ClienteDAO dao = new ClienteDAO();
+            
+            DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+            // Pedimos que nos retorne la lista de clientes y metemos los objetos completos al modelo
+            for (ClienteModel c : dao.listar()) {
+                modeloCombo.addElement(c); 
+            }
+            cmbIdCliente.setModel(modeloCombo);
+        
+        } catch (java.sql.SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los clientes dueños: " + ex.getMessage());
+        }
+          cargarMascotasTabla();
+        
+    }
+    
+        
+    private void cargarMascotasTabla(){
+         try {
+        List<MascotaModel> lista = dao.listar(); 
+        
+         DefaultTableModel modeloMascota = (DefaultTableModel) TblMascotas.getModel();
+        modeloMascota.setRowCount(0); 
+       
+        for (MascotaModel m : lista) {
+            Object[] rowData = {      
+                m.getIdMascota(),   
+                m.getNombre(),      
+                m.getEspecie(),   
+                m.getRaza(),    
+                m.getEdad(),  
+                m.getIdCliente(),
+            };
+            modeloMascota.addRow(rowData);
+        }
+         TblMascotas.setModel(modeloMascota);
+             
+             // anchos de la tabla
+             TblMascotas.getColumnModel().getColumn(0).setPreferredWidth(50);
+             TblMascotas.getColumnModel().getColumn(1).setPreferredWidth(80);
+             TblMascotas.getColumnModel().getColumn(2).setPreferredWidth(80);
+             TblMascotas.getColumnModel().getColumn(3).setPreferredWidth(80);
+             TblMascotas.getColumnModel().getColumn(4).setPreferredWidth(80);
+             TblMascotas.getColumnModel().getColumn(5).setPreferredWidth(80);
+        
+         
+         } catch (SQLException ex) {
+             System.getLogger(FrmCliente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+         }
+    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,22 +130,17 @@ public class FrmMascotas extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        txtIdMascota = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
         txtRaza = new javax.swing.JTextField();
         lblRaza = new javax.swing.JLabel();
-        txtEdad = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
-        lblIdMascota = new javax.swing.JLabel();
-        cmbEspecie = new javax.swing.JComboBox<>();
         lblEdad = new javax.swing.JLabel();
-        lblDueño = new javax.swing.JLabel();
-        cmbDueño = new javax.swing.JComboBox<>();
-        lblBuscarCliente = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        lblCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableMascotas = new javax.swing.JTable();
+        TblMascotas = new javax.swing.JTable();
+        txtEspecie = new javax.swing.JTextField();
+        txtEdad = new javax.swing.JTextField();
+        cmbIdCliente = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,8 +159,10 @@ public class FrmMascotas extends javax.swing.JFrame {
         lblNombre.setText("Nombre:");
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(this::btnRegistrarActionPerformed);
 
-        btnEditar.setText("Editar");
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(this::btnRegresarActionPerformed);
 
         lblRaza.setForeground(new java.awt.Color(0, 0, 0));
         lblRaza.setText("Raza");
@@ -78,28 +170,15 @@ public class FrmMascotas extends javax.swing.JFrame {
         btnEliminar.setBackground(new java.awt.Color(255, 102, 102));
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
-
-        lblIdMascota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblIdMascota.setForeground(new java.awt.Color(0, 0, 0));
-        lblIdMascota.setText("Id Macota:");
-
-        cmbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
         lblEdad.setForeground(new java.awt.Color(0, 0, 0));
         lblEdad.setText("Edad:");
 
-        lblDueño.setForeground(new java.awt.Color(0, 0, 0));
-        lblDueño.setText("Dueño");
+        lblCliente.setForeground(new java.awt.Color(0, 0, 0));
+        lblCliente.setText("IdCliente");
 
-        cmbDueño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblBuscarCliente.setForeground(new java.awt.Color(0, 0, 0));
-        lblBuscarCliente.setText("Buscar Mascota:");
-
-        btnBuscar.setText("Buscar");
-
-        tableMascotas.setModel(new javax.swing.table.DefaultTableModel(
+        TblMascotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -110,113 +189,99 @@ public class FrmMascotas extends javax.swing.JFrame {
                 "idMascota", "Nombre", "Edad", "raza", "Especie", "Dueño"
             }
         ));
-        jScrollPane1.setViewportView(tableMascotas);
+        jScrollPane1.setViewportView(TblMascotas);
+
+        cmbIdCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jpCelesteLayout = new javax.swing.GroupLayout(jpCeleste);
         jpCeleste.setLayout(jpCelesteLayout);
         jpCelesteLayout.setHorizontalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCelesteLayout.createSequentialGroup()
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblRaza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdMascota, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(txtRaza))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombre)
-                            .addComponent(cmbEspecie, 0, 129, Short.MAX_VALUE)))
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addComponent(btnRegistrar)
-                        .addGap(143, 143, 143)
-                        .addComponent(btnEditar)
-                        .addGap(27, 27, 27)))
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addComponent(lblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpCelesteLayout.createSequentialGroup()
-                                .addComponent(lblDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbDueño, 0, 112, Short.MAX_VALUE))))
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(35, Short.MAX_VALUE))
-            .addGroup(jpCelesteLayout.createSequentialGroup()
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpCelesteLayout.createSequentialGroup()
-                        .addGap(265, 265, 265)
-                        .addComponent(lblMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(265, 265, 265)
+                .addComponent(lblMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jpCelesteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbIdCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(btnRegistrar)))
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCelesteLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                                    .addComponent(txtEspecie)))
+                            .addGroup(jpCelesteLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(btnRegresar)
+                                .addGap(42, 42, 42)
+                                .addComponent(btnEliminar))))
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jpCelesteLayout.setVerticalGroup(
             jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCelesteLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(lblMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIdMascota)
-                    .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIdMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblNombre)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblEdad)
-                        .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEspecie)
+                            .addComponent(txtEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpCelesteLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEdad)
+                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRaza)
+                            .addComponent(txtRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
                 .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRaza)
-                    .addComponent(txtRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEspecie)
-                    .addComponent(cmbEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDueño)
-                    .addComponent(cmbDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCliente)
                     .addComponent(btnRegistrar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnEliminar))
-                .addGap(60, 60, 60)
-                .addGroup(jpCelesteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBuscarCliente)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                    .addComponent(btnRegresar)
+                    .addComponent(btnEliminar)
+                    .addComponent(cmbIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpCeleste, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpCeleste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,6 +290,112 @@ public class FrmMascotas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+         try {
+        //leer datos del formulario
+        String nombre= txtNombre.getText().trim();
+        String especie = txtEspecie.getText().trim();
+        String raza = txtRaza.getText().trim();
+        String edadStr = txtEdad.getText().trim();
+        
+        Object seleccionado = cmbIdCliente.getSelectedItem();
+        
+        // Validar
+        if(nombre.isBlank()){
+            JOptionPane.showMessageDialog(this,"El nombre de la mascota es obligatorio");
+            return;
+        }
+        if(especie.isBlank()){
+            JOptionPane.showMessageDialog(this,"La especie de la mascota es obligatoria");
+            return;
+        }
+        if(raza.isBlank()){
+            JOptionPane.showMessageDialog(this,"La raza de la mascota es obligatoria");
+            return;
+        }
+        if(edadStr.isBlank()){
+            JOptionPane.showMessageDialog(this,"La edad es obligatorio");
+            return;
+        }
+        if(seleccionado == null){
+            JOptionPane.showMessageDialog(this,"Debe seleccionar un cliente de la lista");
+            return;
+             
+        }
+        int edad = Integer.parseInt(edadStr);
+        //convertimos el objeto generico del combo directamente a ClienteModel
+        ClienteModel cliente = (ClienteModel) seleccionado;
+        
+        //modelo de mascota asignándole el ID del cliente 
+        
+        MascotaModel mascota = new MascotaModel(); 
+        mascota.setNombre(nombre); 
+        mascota.setEspecie(especie); 
+        mascota.setRaza(raza); 
+        mascota.setEdad(edad); 
+        mascota.setIdCliente(cliente.getIdCliente()); //extraemos el id del cliente
+             try {
+                 dao.insertar(mascota);
+             } catch (SQLException ex) {
+                 System.getLogger(FrmMascotas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+             }
+        
+        JOptionPane.showMessageDialog(this,"Registrado con éxito");
+         cargarMascotasTabla(); 
+
+       //limpiar los 
+        txtNombre.setText("");
+        txtEspecie.setText("");
+        txtRaza.setText("");
+        txtEdad.setText("");
+  
+        
+       }catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(this, "La edad debe ser un número entero","Error de Formato",JOptionPane.ERROR_MESSAGE);
+       }
+    
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+            int filaSeleccionada = TblMascotas.getSelectedRow();
+            
+            // Validar si no seleccionó nada
+            if (filaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una mascota de la tabla.");
+                return;
+            }
+            
+             //Leemos el número de la columna 0 directamente de la pantalla
+            int idMascotaReal = (int) TblMascotas.getValueAt(filaSeleccionada, 0);
+            
+             // Mandamos a llamar a  DAO
+            dao.eliminar(idMascotaReal);
+            JOptionPane.showMessageDialog(this, "¡Mascota eliminada correctamente!");
+            
+            cargarMascotasTabla();
+            
+        }catch (java.sql.SQLException ex){
+            JOptionPane.showMessageDialog(this, "No se puede eliminar porque la mascota está asignada a una cita.");
+        
+        } catch (Exception ex){
+            
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        FrmMenu frmMenu =new FrmMenu();
+        frmMenu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,27 +423,22 @@ public class FrmMascotas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEditar;
+    private javax.swing.JTable TblMascotas;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> cmbDueño;
-    private javax.swing.JComboBox<String> cmbEspecie;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cmbIdCliente;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpCeleste;
-    private javax.swing.JLabel lblBuscarCliente;
-    private javax.swing.JLabel lblDueño;
+    private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEdad;
     private javax.swing.JLabel lblEspecie;
-    private javax.swing.JLabel lblIdMascota;
     private javax.swing.JLabel lblMascota;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRaza;
-    private javax.swing.JTable tableMascotas;
-    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtEdad;
-    private javax.swing.JTextField txtIdMascota;
+    private javax.swing.JTextField txtEspecie;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRaza;
     // End of variables declaration//GEN-END:variables
